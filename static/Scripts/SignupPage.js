@@ -13,7 +13,7 @@ function updateRadioLabelColors() {
     identityKeyLabel.setAttribute('id', 'identity_key_field');
     identityKeyLabel.innerHTML = `
         Identity Key <span class="red">*</span><br>
-        <input type="text" class="input" id="identity_key_input" placeholder="Enter Identity Key">
+        <input type="text" class="input" id="identity_key_input" placeholder="Enter Identity Key" name="idKey">
         <p id="identity_key_warning" class="red"></p>
     `;
 

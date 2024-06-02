@@ -14,7 +14,7 @@ import uuid
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     user_type_data=((1,"HOD"),(2,"Teacher"),(3,"Student"))
-    # USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'email'
     user_type=models.CharField(default=3,choices=user_type_data,max_length=10,blank=True,)
 
     forget_password_token = models.CharField(max_length= 100, null=True)
@@ -41,9 +41,9 @@ class HOD(models.Model):
 #Teacher
 class Teacher(models.Model):
     id = models.AutoField(primary_key=True)
-    fname = models.CharField(max_length=30, default="Teacher")
-    lname = models.CharField(max_length=30, default="")
-    id_key = models.CharField(max_length=15, null=True)
+    fname = models.CharField(max_length=50, default="Teacher")
+    lname = models.CharField(max_length=50, default="")
+    id_key = models.CharField(max_length=100, null=True)
     admin=models.OneToOneField(CustomUser,null = True, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pics', default='default.png')
     phone = models.IntegerField(default = 1)
@@ -57,9 +57,9 @@ class Teacher(models.Model):
 #Courses
 class Courses(models.Model):
     id=models.AutoField(primary_key=True)
-    course_name=models.CharField(max_length=255)
+    course_name=models.CharField(max_length=255, unique=True)
     created_at=models.DateTimeField(auto_now_add=True)
-    total_sem = models.IntegerField(max_length=2, default=6)
+    total_sem = models.IntegerField(default=6)
     # updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
     def __str__(self):
@@ -68,9 +68,11 @@ class Courses(models.Model):
 #Branch
 class Branch(models.Model):
     id = models.AutoField(primary_key=True)
-    branch_name = models.CharField(max_length=30, null=True)
+    branch_name = models.CharField(max_length=100, null=True)
     course = models.ForeignKey(Courses, on_delete=models.DO_NOTHING,null = True)
-    hod=models.OneToOneField(HOD, on_delete=models.CASCADE, null=True)
+    hod=models.OneToOneField(HOD, on_delete=models.DO_NOTHING, null=True)
+    def __str__(self):
+        return self.branch_name
 
 
 #Student
@@ -85,10 +87,11 @@ class Student(models.Model):
     fathername = models.CharField(max_length=30,default="fname")
     dob = models.DateField(null=True)
     phone_no = models.IntegerField(default=0)
-    branch = models.CharField(max_length=30,default = "branch")
+    branch = models.ForeignKey(Branch, on_delete=models.DO_NOTHING, null=True)
     year = models.IntegerField(default=1)
     rollno = models.IntegerField(default=1)
     sem = models.IntegerField(default = 1)
+    gender = models.CharField(max_length=10, default="Male")
     course=models.ForeignKey(Courses,on_delete=models.DO_NOTHING,null = True)
     hod = models.ForeignKey(HOD,null=True, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)

@@ -36,7 +36,7 @@ def signup_view(request):
 
         if password ==confirm:
             if CustomUser.objects.filter(email=e_mail).exists():
-                messages.info(request,'User already exists with this email ')
+                messages.success(request,'User already exists with this email ')
                 return redirect('signup_view')
             else:
                 if user_type=="student":
@@ -47,17 +47,20 @@ def signup_view(request):
                     stu_user.lname = lName
                     stu_user.save()
                     messages.success(request, "You have Registered Successfully!")
-                    # login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     # return render(request, 'student_dashboard.html')
-                    return redirect('login_view')
+                    return redirect('student_details')
                 else:
+                    key=request.POST['idKey']
+                    print("Hello I am Here")
                     user = CustomUser.objects.create_user   (username=e_mail, email=e_mail,  password=password, user_type = 2)
                     user.save()
                     teacher_user = user.teacher
                     teacher_user.fname = fName
                     teacher_user.lname = lName
+                    teacher_user.id_key = key
                     teacher_user.save()
-                    messages.success("You have Registered Successfully!")
+                    messages.success(request, "You have Registered Successfully!")
                     # login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('login_view')
         else:
@@ -69,7 +72,6 @@ def signup_view(request):
 csrf_protect
 def login_view(request):
     if request.method == 'POST':
-        # username = request.POST['u_name']
         e_mail = request.POST['mail']
         password = request.POST['password']
         user_type = request.POST['login_as']
@@ -77,21 +79,14 @@ def login_view(request):
         if user != None:
             login(request,user,backend='django.contrib.auth.backends.ModelBackend')
             if user_type=="teacher":
+                teacher_obj = user.teacher
+                context = {'user':user, 'teacher':teacher_obj}
+                request.session['context']=context
                 return redirect('teacher_dashboard')
             else:
                 stu_obj = user.student
-                # fullName = stu_obj.fname+' '+user.student.lname
-                # email = user.email
-                # fName = stu_obj.fname
-                # lName = stu_obj.lname
-                # dob = stu_obj.dob
-                # fatherName = stu_obj.fathername
-                # address = stu_obj.address
-                # course = stu_obj.course
-                # branch = stu_obj.branch
-                # sem = stu_obj.sem
-                # rollNo = stu_obj.rollno
-                context = {'user': user, 'student':stu_obj}
+                subjects = Subject.objects.filter(sem=stu_obj.sem)
+                context = {'user': user, 'student':stu_obj, 'subjects':subjects}
                 return render(request,'student_dashboard.html', context)
         else:
             print("error")
@@ -164,6 +159,37 @@ def add_note(request,subkey):
 
 
 # Student Views
+@login_required
+def student_details(request):
+    if request.method == 'POST':
+        father_name = request.POST['fatherName']
+        phone = request.POST['phone']
+        dob= request.POST['dob']
+        gender = request.POST['gender']
+        address = request.POST['address']
+        course = request.POST['course']
+        branch = request.POST['branch']
+        sem = request.POST['sem']
+        rollNo= request.POST['rollNo']
+        course_obj = Courses.objects.get(course_name=course)
+        branch_obj = Branch.objects.get(branch_name=branch)
+
+        stu_obj = Student.objects.get(admin = request.user)
+        stu_obj.fathername =father_name
+        stu_obj.phone_no = phone
+        stu_obj.dob = dob
+        stu_obj.gender = gender
+        stu_obj.address = address
+        stu_obj.course = course_obj
+        stu_obj.branch = branch_obj
+        stu_obj.sem = int(sem)
+        stu_obj.rollno = rollNo
+
+        stu_obj.save()
+        return redirect('dashboard')
+
+    else:
+        return render(request, 'studentdetails.html')
 
 @csrf_protect
 def student_signup(request):
@@ -219,43 +245,43 @@ def student_login(request):
         return render(request,'student_login.html')
     
 
-@login_required(login_url='/')
-@csrf_protect
-def student_detail(request):
-    if request.method == 'POST':
-        # fullname = request.POST['full_name']
-        father_name = request.POST['Fathers_name']
-        course_id = request.POST['course']
-        branch = request.POST['branch']
-        year = request.POST['year']
-        semester = request.POST['semester']
-        roll_no = request.POST['roll_no']
-        address = request.POST['address']
-        # user = CustomUser.objects.get(username=request.user.username)
-        # user = stu_detail.objects.get(user=request.user)
-        # user = Studetails.objects.get(user = Student.objects.get(admin = request.user))
-        use = CustomUser.objects.get(email = request.user.email)
-        student = Student.objects.get(admin = use)
-        student.address = address
-        student.fathername = father_name
-        student.branch = branch
-        student.sem = semester
-        student.rollno = roll_no
-        student.year = year
-        # courses=Courses.objects.all()
-        course_obj = Courses.objects.get(id=course_id)
-        # user_stu = Student.object.filter(admin = request.user).first()
-        # user_stu.address = address
-        # user_stu.fathername = father_name
-        # user_stu.branch = branch
-        # user_stu.course = course
-        # user_stu.year = year
-        # user_stu.sem = semester
-        # user_stu.rollno = roll_no  
-        student.save()  
-        return redirect('student_dashboard')
-    else:
-        return render(request, 'student_detail.html')
+# @login_required(login_url='/')
+# @csrf_protect
+# def student_detail(request):
+#     if request.method == 'POST':
+#         # fullname = request.POST['full_name']
+#         father_name = request.POST['Fathers_name']
+#         course_id = request.POST['course']
+#         branch = request.POST['branch']
+#         year = request.POST['year']
+#         semester = request.POST['semester']
+#         roll_no = request.POST['roll_no']
+#         address = request.POST['address']
+#         # user = CustomUser.objects.get(username=request.user.username)
+#         # user = stu_detail.objects.get(user=request.user)
+#         # user = Studetails.objects.get(user = Student.objects.get(admin = request.user))
+#         use = CustomUser.objects.get(email = request.user.email)
+#         student = Student.objects.get(admin = use)
+#         student.address = address
+#         student.fathername = father_name
+#         student.branch = branch
+#         student.sem = semester
+#         student.rollno = roll_no
+#         student.year = year
+#         # courses=Courses.objects.all()
+#         course_obj = Courses.objects.get(id=course_id)
+#         # user_stu = Student.object.filter(admin = request.user).first()
+#         # user_stu.address = address
+#         # user_stu.fathername = father_name
+#         # user_stu.branch = branch
+#         # user_stu.course = course
+#         # user_stu.year = year
+#         # user_stu.sem = semester
+#         # user_stu.rollno = roll_no  
+#         student.save()  
+#         return redirect('student_dashboard')
+#     else:
+#         return render(request, 'student_detail.html')
     
 @login_required(login_url='/')
 def student_dashboard(request):
@@ -385,6 +411,9 @@ def logout_hod(request):
     auth.logout(request)
     return redirect('/hod_login')
 
+def add_course(request):
+    pass
+
 @login_required(login_url='/hod')
 def hod_dashboard(request):
     # use = CustomUser.objects.get(email = request.user.email)
@@ -396,15 +425,32 @@ def hod_dashboard(request):
     return render(request,'adminhome.html')
 
 def admin_edit_teacher(request):
-    subjects = Subject.objects.filter(hod=request.user.hod)
-    teachers = Teacher.objects.filter(hod=request.user.hod)
-    context={'subjects':subjects, 'teachers':teachers, 'Subject':Subject}
-    return render(request, 'admineditteacher.html',context)
+    if request.method == 'POST':
+        teacher = request.POST['tName']
+        keyId = request.POST['keyId']
+        subjects = request.POST['subjects']
+        messages.success(request, 'Teacher added successfully')
+    else:
+        subjects = Subject.objects.filter(hod=request.user.hod)
+        teachers = Teacher.objects.filter(hod=request.user.hod)
+        context={'subjects':subjects, 'teachers':teachers, 'Subject':Subject}
+        return render(request, 'admineditteacher.html',context)
 
 def admin_edit_courses(request):
-    courses = Courses.objects.annotate(branch_count=Count('branch'))
-    context={'courses':courses}
-    return render(request, 'admineditcourses.html', context)
+    if request.method =='POST':
+        course = request.POST['courseName']
+        branch = request.POST['branchName']
+        semCount = request.POST['semCount']
+        course_obj = Courses(course_name = course, total_sem = semCount)
+        course_obj.save()
+        branch_obj = Branch(branch_name=branch, course=course_obj, hod=request.user.hod)
+        branch_obj.save()
+        messages.success(request, 'Course added Successfully')
+        return redirect('admin_edit_courses')
+    else:
+        courses = Courses.objects.annotate(branch_count=Count('branch'))
+        context={'courses':courses}
+        return render(request, 'admineditcourses.html', context)
 
 def admin_edit_subject(request):
     return render(request, 'admineditsubject.html')
