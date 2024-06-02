@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration-Teacher</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="stylesheet" href="{% static 'css/reg.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reg.css' %}">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-bar">
+            <a href="/" class="link logo">LastClass</a>
+            <div class="data">
+                <a href="/" class="link">Home</a>
+                <a href="/#about" class="link">About</a>
+                {% comment %} <a href="#" class="link">sample</a> {% endcomment %}
+            </div>
+        </nav>
+    </header>
+
+    <section class="student-registration flex-center">
+        <div class="details flex-center">
+            <h2>HOD Registrations</h2>
+            {% if messages %}
+                {%for message in messages%}
+                <p class="warning">{{message}}</p>
+                {%endfor%}
+            {%endif%}
+            <form action="hod_signup" method="post" class="flex-center">
+                {% csrf_token %}
+                {% comment %} <div class="flex-center">
+                    <input type="text" name="full_name" id="full_name" autocomplete="off" placeholder="Full Name*"
+                        required>
+                    <input type="text" name="User_name" id="u_name" placeholder="User Name*" required>
+                </div> {% endcomment %}
+                <div class="flex-center">
+                    <input type="email" name="mail" id="mail" placeholder="E-mail*" required>
+                    {% comment %} <input type="number" name="Mobile_no" id="phoneno" placeholder="Phone Number" required> {% endcomment %}
+                </div>
+                <div class="flex-center">
+                    <input type="password" name="Password" id="Password1" placeholder="Create Password*"
+                        autocomplete="on" required>
+                    <input type="password" name="confirm" id="password2" placeholder="Confirm Password*"
+                        autocomplete="on" required>
+                </div>
+                <div>
+                    <p style="height: 30px;width: 300px;color: red;font-size: 15px;" id="popup"></p>
+                </div>
+                <button type="submit" id="button">Register_admin</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="{% static 'js/reg.js' %}"></script>
+</body>
+</html>

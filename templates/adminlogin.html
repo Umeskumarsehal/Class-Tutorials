@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Login</title>
+    <link rel="stylesheet" href="{% static 'Styles/Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'Styles/Common.css' %}">
+    <link rel="stylesheet" href="{% static 'Styles/Button.css' %}">
+    <link rel="stylesheet" href="{% static 'Styles/AdminLoginPage.css' %}">
+    <link rel="stylesheet" href="{% static 'Styles/InputStyle.css' %}">
+</head>
+
+<body>
+    <header>
+        {% include "admin_nav.html" %}
+    </header>
+
+    <section class="form-container flex-center">
+        <form action="hod_login" class="form flex-center-column" id="admin-login-form" method="post">
+            {% csrf_token %}
+            <h2>Welcome Admin</h2>
+            <div class="input-field-container flex-center-column">
+                <label for="email_input" class="input-field">
+                    Email Address <span class="red">*</span><br>
+                    <input type="email" name="mail" class="input" id="email_input" placeholder="Enter email address">
+                    <p id="email_warning" class="red"></p>
+                </label>
+                <label for="password_input" class="input-field">
+                    Password <span class="red">*</span><br>
+                    <input type="password" class="input password-field" id="password_input"
+                        placeholder="Enter password" name="password" >
+                    <p id="password_warning" class="red"></p>
+                    <img src="{% static 'assets/eye.svg' %}" alt="eye" class="view-hide-button" id="view_hide_btn">
+                </label>
+            </div>
+            <button class="button admin-login-button flex-center" type="submit">Login</button>
+            {% if messages %}
+                {%for message in messages%}
+                <p class="backend-failure red">{{message}}</p>
+                {%endfor%}
+            {%endif%}
+            
+        </form>
+    </section>
+    <script src="{% static 'Scripts/navbar.js' %}"></script>
+    <script src="{% static 'Scripts/EmailValidation.js' %}"></script>
+    <script src="{% static 'Scripts/PasswordValidation.js' %}"></script>
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function (event) {
+            let isValid = true;
+            isValid = checkValidEmail();
+            isValid = checkValidPassword();
+            if (!isValid || !isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

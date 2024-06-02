@@ -1,0 +1,23 @@
+{% load static %}
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/index.html" class="link"><img src="{% static 'assets/Class_tutorials.png' %}" alt="logo" class="logo"></a>
+
+        <div class="nav-content flex-center">
+            <div class="nav-profile flex-center">
+                <img src="{% static 'assets/Hamburger_icon.svg' %}" alt="hamburger" class="hamburger hidden" id="hamburger">
+                <div class="profile-image" id="profile">
+                    <img src="{% static 'assets/profile.svg' %}" alt="profile" class="profile">
+                </div>
+            </div>
+            <!-- <a href="#" class="link" style="color: #9BD6FF;">Login/Sign-up</a> -->
+            <div class="profile-details flex-center hidden" id="profile_details">
+                {% if user.is_authenticated %}
+                <a href="logout_hod" class="link">Log-out</a>
+                {% else %}
+                <a href="hod_signup" class="link">Signup</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
