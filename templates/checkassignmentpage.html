@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments | ClassTutorials</title>
+    <link rel="stylesheet" href="Styles/Common.css">
+    <link rel="stylesheet" href="Styles/Navbar.css">
+    <link rel="stylesheet" href="Styles/Footer.css">
+    <link rel="stylesheet" href="Styles/Button.css">
+    <link rel="stylesheet" href="Styles/CheckAssignment.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="/index.html" class="link"><img src="assets/Class_tutorials.png" alt="logo" class="logo"></a>
+
+                <div class="nav-content flex-center">
+                    <div class="nav-list" id="navlist">
+                        <a href="/index.html" class="link">Home</a>
+                        <a href="#" class="link">About</a>
+                        <a href="#" class="link">Community</a>
+                        <a href="#" class="link">Dashboard</a>
+                    </div>
+                    <div class="nav-profile flex-center">
+                        <img src="assets/Hamburger_icon.svg" alt="hamburger" class="hamburger hidden" id="hamburger">
+                        <div class="profile-image" id="profile">
+                            <img src="assets/profile.svg" alt="profile" class="profile">
+                        </div>
+                    </div>
+                    <!-- <a href="#" class="link" style="color: #9BD6FF;">Login/Sign-up</a> -->
+                    <div class="profile-details flex-center hidden" id="profile_details">
+                        <a href="#" class="link">Dashboard</a>
+                        <a href="#" class="link">Log-out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="assignment-details flex-center-column prevent-select">
+            <div class="main-assignment-container flex-center-column">
+                <div class="assignment-block">
+                    <div class="student-profile">
+                        <img src="assets/ProfilePreviewMale.svg" alt="profile"><!-- image of student -->
+                        <p>Varun Tankan</p><!-- name of student -->
+                    </div>
+                    <button class="button checked">Close</button><!-- navigate back to assignmentstatusboard -->
+                </div>
+                <div class="questions-container" id="questions_container">
+                    <!-- <div class="question">
+                        <div class="question-data" id="answer_field_1"><label for="answer_input_1"
+                                class="input-field"><span>1.</span>
+                                <p>When was "Luigi's Mansion 3" released?</p>
+                            </label>
+                            <div>
+                                <textarea id="answer_input_1" placeholder="Enter Your Answer."></textarea>
+                                <div class="right-wrong-container">
+                                    <p><span id="word_count_of_1">0</span>/<span id="total_word_count_of_1">150</span>
+                                    </p>
+                                    <div>
+                                        <button class="wrong" id="wrong_1">
+                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M27.7431 22.4936L19.2495 14L27.7431 5.50636C27.9059 5.34162 27.9971 5.11937 27.9971 4.8878C27.9971 4.65622 27.9059 4.43398 27.7431 4.26923L23.7308 0.256889C23.6496 0.175465 23.5532 0.110859 23.4471 0.0667756C23.3409 0.0226924 23.2271 0 23.1122 0C22.9973 0 22.8835 0.0226924 22.7773 0.0667756C22.6712 0.110859 22.5748 0.175465 22.4936 0.256889L14 8.75053L5.50636 0.256889C5.34229 0.0928686 5.11979 0.000726909 4.8878 0.000726909C4.6558 0.000726909 4.4333 0.0928686 4.26923 0.256889L0.256889 4.26923C0.175465 4.35036 0.110859 4.44676 0.0667756 4.5529C0.0226924 4.65905 0 4.77286 0 4.8878C0 5.00273 0.0226924 5.11654 0.0667756 5.22269C0.110859 5.32884 0.175465 5.42524 0.256889 5.50636L8.75053 14L0.256889 22.4936C0.0928686 22.6577 0.000726909 22.8802 0.000726909 23.1122C0.000726909 23.3442 0.0928686 23.5667 0.256889 23.7308L4.26923 27.7431C4.35036 27.8245 4.44676 27.8891 4.5529 27.9332C4.65905 27.9773 4.77286 28 4.8878 28C5.00273 28 5.11654 27.9773 5.22269 27.9332C5.32884 27.8891 5.42524 27.8245 5.50636 27.7431L14 19.2495L22.4936 27.7431C22.6577 27.9071 22.8802 27.9993 23.1122 27.9993C23.3442 27.9993 23.5667 27.9071 23.7308 27.7431L27.7431 23.7308C27.8245 23.6496 27.8891 23.5532 27.9332 23.4471C27.9773 23.3409 28 23.2271 28 23.1122C28 22.9973 27.9773 22.8835 27.9332 22.7773C27.8891 22.6712 27.8245 22.5748 27.7431 22.4936Z"
+                                                    fill="#D02727" fill-opacity="0.2" />
+                                            </svg>
+                                        </button>
+                                        <button class="right" id="right_1">
+                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M25.7898 0.543197C25.2963 0.268075 24.7535 0.093114 24.1924 0.0283205C23.6313 -0.0364729 23.063 0.0101716 22.5199 0.165587C21.9768 0.321003 21.4697 0.582141 21.0274 0.934067C20.5851 1.28599 20.2165 1.7218 19.9425 2.21658L11.9604 16.6072L7.39213 12.0307C6.99551 11.6193 6.52109 11.2912 5.99653 11.0655C5.47197 10.8397 4.90778 10.7209 4.33689 10.7159C3.766 10.711 3.19984 10.8199 2.67145 11.0365C2.14305 11.2531 1.663 11.5729 1.2593 11.9773C0.855609 12.3818 0.536356 12.8627 0.320171 13.392C0.103987 13.9214 -0.00479853 14.4886 0.000162336 15.0605C0.00512321 15.6324 0.123731 16.1976 0.349065 16.7231C0.5744 17.2486 0.901947 17.7239 1.3126 18.1212L9.91166 26.7358C10.7243 27.552 11.8207 28 12.9514 28L13.5469 27.9569C14.2059 27.8646 14.8345 27.6202 15.3833 27.2432C15.932 26.8661 16.3859 26.3666 16.7092 25.7839L27.458 6.40111C27.7325 5.90674 27.907 5.36307 27.9717 4.80112C28.0364 4.23918 27.9899 3.66998 27.835 3.12601C27.6801 2.58205 27.4198 2.07398 27.0689 1.63082C26.7179 1.18766 26.2833 0.818084 25.7898 0.543197Z"
+                                                    fill="#3C6E71" fill-opacity="0.2" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    </div> -->
+                </div>
+                <form action="/assignmentstatusboard.html" id="form" class="form">
+                    <textarea name="assignment_answer" class="hidden-imp" id="answer_of_assignment"></textarea>
+                    <button class="button" type="submit">Save</button>
+                </form>
+                <p class="backend-error red" id="warning"></p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-level-1">
+            <div class="level-1-container">
+                <img src="assets/footer_logo.png" alt="footer logo image" class="footer-img">
+                <div class="footer-content">
+                    <div class="footer-content-div">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Notes</a></li>
+                            <li><a href="#">Assignments</a></li>
+                            <li><a href="#">Quizzes</a></li>
+                            <li><a href="#">Code Challenges</a></li>
+                            <li><a href="#">Projects</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-content-div">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="#">Forum</a></li>
+                            <li><a href="#">Chapters</a></li>
+                            <li><a href="#">Events</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-content-div">
+                        <h3>Solutions</h3>
+                        <ul>
+                            <li><a href="#">Learning Solution</a></li>
+                            <li><a href="#">Carrier Development</a></li>
+                            <li><a href="#">Upskilling</a></li>
+                            <li><a href="#">Networking</a></li>
+                            <li><a href="#">Knowledge Development</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-content-div">
+                        <h3>Career Building</h3>
+                        <ul>
+                            <li><a href="#">Career Path</a></li>
+                            <li><a href="#">Career Services</a></li>
+                            <li><a href="#">Interview Prep</a></li>
+                        </ul>
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-level-2">
+            <div class="level-2-container">
+                <p>
+                    Copyright © LastClass. All Rights Reserved
+                </p>
+                <div class="social-media-links">
+                    <a href="#"><img src="assets/facebook_icon.svg" alt="facebook"></a>
+                    <a href="#"><img src="assets/Google_icon.svg" alt="Google"></a>
+                    <a href="#"><img src="assets/Twitter_icon.svg" alt="twitter"></a>
+                    <a href="#"><img src="assets/Youtube_icon.svg" alt="youtube"></a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <script id="assignment_data_container">
+        const studentAssignmentData = {
+            "total_questions": 10,
+            "questions": [
+                {
+                    "question": "When was &quot;Luigi&#039;s Mansion 3&quot; released?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "this is my answer",
+                    "status": "right",
+                },
+                {
+                    "question": "In what Homestuck Update was [S] Game Over released?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "Liam Howlett founded which electronic music group in 1990?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "Which famous 90&#039;s rap album is commonly referred to as &quot;The Bible of Hip Hop&quot;?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "How many bytes are in a single Kibibyte?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "What was the name of Ross&#039; pet monkey on &quot;Friends&quot;?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "In &quot;My Little Pony: Friendship is Magic&quot;, which of these ponies represents the quality of honesty?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "Donald Trump won the popular vote in the 2016 United States presidential election.",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "In Dota 2, Wraith King was previously known as...",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                },
+                {
+                    "question": "What is the collective noun for vultures?",
+                    "min_words": "150",
+                    "max_words": "500",
+                    "student_answer": "",
+                    "status": "right",
+                }
+            ]
+        }
+
+    </script>
+    <script src="Scripts/CheckAssignment.js"></script>
+    <script src="Scripts/navbar.js"></script>
+</body>
+
+</html>
