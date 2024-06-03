@@ -171,6 +171,7 @@ def student_details(request):
         branch = request.POST['branch']
         sem = request.POST['sem']
         rollNo= request.POST['rollNo']
+        print(branch)
         course_obj = Courses.objects.get(course_name=course)
         branch_obj = Branch.objects.get(branch_name=branch)
 
@@ -189,7 +190,9 @@ def student_details(request):
         return redirect('dashboard')
 
     else:
-        return render(request, 'studentdetails.html')
+        course_obj = Courses.objects.all()
+        branch_obj = Branch.objects.all()
+        return render(request, 'studentdetails.html',{'courses':course_obj,'branches':branch_obj})
 
 @csrf_protect
 def student_signup(request):
@@ -290,9 +293,9 @@ def student_dashboard(request):
     # context = {'name':My_user.student_set.get(id = request.user.id).username}
     use = CustomUser.objects.get(email = request.user.email)
     student = Student.objects.get(admin = use)
-    subject = Subject.objects.all()
+    subject = Subject.objects.filter(course=student.course, branch=student.branch, sem = student.sem)
     nm = request.user.first_name
-    context = {'name':nm,'branch':student.branch,'course':student.course_id.course_name,'roll':student.rollno,'profile':student.profile_pic,'subjects':subject}
+    context = {'subjects':subject}
     return render(request,'student_dashboard.html',context)
 
     

@@ -111,10 +111,9 @@
                             Select Course <span class="red">*</span><br>
                             <select name="course" id="select_course" class="select-course">
                                 <option value="">Select Course</option>
-                                {% for course in courses %}
+                                {% for course in courses%}
                                 <option value="{{course.course_name}}">{{course.course_name}}</option>
                                 {% endfor %}
-                                <option value="B.Tech">B. tech</option>
                             </select>
                             <p id="select_course_warning" class="red"></p>
                         </label>
@@ -123,7 +122,7 @@
                             <select name="branch" id="select_branch" class="select-Branch">
                                 <option value="">Select Branch</option>
                                 {% for branch in branches %}
-                                <option value={{branch.branch_name}}>{{branch.branch_name}}</option>
+                                <option value="{{branch.branch_name}}">{{branch.branch_name}}</option>
                                 {% endfor %}
                                 
                             </select>
@@ -135,10 +134,9 @@
                             Select Semester <span class="red">*</span><br>
                             <select name="sem" id="select_semester" class="select-semester">
                                 <option value="">Select Semester</option>
-                                {% for sem in semesters %}
-                                <option value={{sem.value}}>{{sem.value}}</option>
+                                {% for i in '12345678'|make_list %}
+                                <option value={{ forloop.counter }}>{{ forloop.counter }}</option>
                                 {% endfor %}
-                                <option value="1">1</option>
                             </select>
                             <p id="select_semester_warning" class="red"></p>
                         </label>

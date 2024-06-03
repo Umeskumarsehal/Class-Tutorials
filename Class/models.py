@@ -69,7 +69,7 @@ class Courses(models.Model):
 class Branch(models.Model):
     id = models.AutoField(primary_key=True)
     branch_name = models.CharField(max_length=100, null=True)
-    course = models.ForeignKey(Courses, on_delete=models.DO_NOTHING,null = True)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE,null = True)
     hod=models.OneToOneField(HOD, on_delete=models.DO_NOTHING, null=True)
     def __str__(self):
         return self.branch_name
@@ -92,7 +92,7 @@ class Student(models.Model):
     rollno = models.IntegerField(default=1)
     sem = models.IntegerField(default = 1)
     gender = models.CharField(max_length=10, default="Male")
-    course=models.ForeignKey(Courses,on_delete=models.DO_NOTHING,null = True)
+    course=models.ForeignKey(Courses,on_delete=models.CASCADE,null = True)
     hod = models.ForeignKey(HOD,null=True, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     objects = models.Manager()

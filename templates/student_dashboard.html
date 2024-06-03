@@ -49,7 +49,7 @@
                 <div class="profile-picture-container flex-center-column">
                     <img src="{% static 'assets/ForgetPasswordBG.svg' %}" alt="profile">
                     <div class="profile-name-email flex-center-column">
-                        <h2>{{student.fname}}</h2>
+                        <h2>{{user.student.fname}} {{user.student.lname}}</h2>
                         <p>{{user.email}}</p>
                     </div>
                 </div>
@@ -65,27 +65,27 @@
                             <ul>
                                 <li>
                                     <span>First Name</span>
-                                    <p>{{student.fname}}</p>
+                                    <p>{{user.student.fname}}</p>
                                 </li>
                                 <li>
                                     <span>Last name</span>
-                                    <p>{{student.lname}}</p>
+                                    <p>{{user.student.lname}}</p>
                                 </li>
                                 <li>
                                     <span>Date of Birth</span>
-                                    <p>{{student.dob}}</p>
+                                    <p>{{user.student.dob}}</p>
                                 </li>
                                 <li>
                                     <span>Phone Number</span>
-                                    <p>{{student.phone_no}}</p>
+                                    <p>{{user.student.phone_no}}</p>
                                 </li>
                                 <li>
                                     <span>Father's name</span>
-                                    <p>{{fathername}}</p>
+                                    <p>{{user.student.fathername}}</p>
                                 </li>
                                 <li>
                                     <span>Address</span>
-                                    <p>{{address}}</p>
+                                    <p>{{user.student.address}}</p>
                                 </li>
                             </ul>
                         </div>
@@ -98,19 +98,19 @@
                             <ul>
                                 <li>
                                     <span>Course</span>
-                                    <p>{{student.course}}</p>
+                                    <p>{{user.student.course}}</p>
                                 </li>
                                 <li>
                                     <span>Branch</span>
-                                    <p>{{student.branch}}</p>
+                                    <p>{{user.student.branch}}</p>
                                 </li>
                                 <li>
                                     <span>Semester</span>
-                                    <p>{{student.sem}}</p>
+                                    <p>{{user.student.sem}}</p>
                                 </li>
                                 <li>
                                     <span>Roll No.</span>
-                                    <p>{{student.rollno}}</p>
+                                    <p>{{user.student.rollno}}</p>
                                 </li>
                             </ul>
                         </div>
@@ -126,8 +126,8 @@
                 </div>
                 <div class="subjects-container">
                     {% for subject in subjects %}
-                    <a  href="/studentnotes.html" class="subject">
-                        <h2>{{subjects.subject_name}}</h2>
+                    <a  href="studentnotes" class="subject">
+                        <h2>{{subject.subject_name}}</h2>
                         <img src="{% static 'assets/SubjectsLable.svg' %}" alt="label">
                         <p>visit-></p>
                     </a>

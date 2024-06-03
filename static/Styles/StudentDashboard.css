@@ -152,7 +152,7 @@
     width: 100%;
     padding: 20px 140px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 354px 354px 354px;
     row-gap: 20px;
     column-gap: 48px;
 }
