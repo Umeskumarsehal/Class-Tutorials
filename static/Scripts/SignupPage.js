@@ -13,8 +13,23 @@ function updateRadioLabelColors() {
     identityKeyLabel.setAttribute('id', 'identity_key_field');
     identityKeyLabel.innerHTML = `
         Identity Key <span class="red">*</span><br>
-        <input type="text" class="input" id="identity_key_input" placeholder="Enter Identity Key">
+        <input type="text" class="input" id="identity_key_input" placeholder="Enter Identity Key"name="idKey">
         <p id="identity_key_warning" class="red"></p>
+    `;
+
+    const selectHodLabel = document.createElement('label');
+    selectHodLabel.setAttribute('for', 'select_hod_input');
+    selectHodLabel.classList.add('input-field');
+    selectHodLabel.setAttribute('id', 'select_hod_field');
+    selectHodLabel.innerHTML = `
+        Select Your HOD <span class="red">*</span><br>
+        <select name="hod" id="select_hod_input" class="select-hod">
+            <option value="0">Select HOD</option>
+            {% for hod in hods %}
+            <option value="{{hod}}">hod.fullname</option>
+            {% endfor %}
+        </select>
+        <p id="select_hod_warning" class="red"></p>
     `;
 
     if (studentRadio.checked) {
@@ -24,6 +39,8 @@ function updateRadioLabelColors() {
         teacherLabel.style.color = 'var(--bg-color2)';
         const existingField = document.getElementById('identity_key_field');
         if (existingField) existingField.remove();
+        const existinghodField = document.getElementById('select_hod_field');
+        if (existinghodField) existinghodField.remove();
     } else if (teacherRadio.checked) {
         studentLabel.style.backgroundColor = 'transparent';
         studentLabel.style.color = 'var(--bg-color2)';
@@ -32,6 +49,10 @@ function updateRadioLabelColors() {
         const existingField = document.getElementById('identity_key_field');
         if (!existingField) {
             emailField.insertAdjacentElement('afterend', identityKeyLabel);
+        }
+        const existinghodField = document.getElementById('select_hod_field');
+        if (!existinghodField) {
+            identityKeyLabel.insertAdjacentElement('afterend', selectHodLabel);
         }
     }
 }
@@ -156,6 +177,17 @@ document.getElementById('signup-form').addEventListener('submit', function (even
         }
     }
 
+    if(teacherRadio.checked){
+        const hodInput = document.getElementById('select_hod_input');
+        const hodInputWarning = document.getElementById('select_hod_warning');
+        const hodInputValue = hodInput.value.trim();
+        if (hodInputValue === '0') {
+            hodInputWarning.textContent = 'Please select one hod.';
+            isValid = false;
+        } else {
+            hodInputWarning.textContent = '';
+        }
+    }
 
     if (!isValid) {
         event.preventDefault();

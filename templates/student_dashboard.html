@@ -126,13 +126,13 @@
                 </div>
                 <div class="subjects-container">
                     {% for subject in subjects %}
-                    <a  href="studentnotes" class="subject">
+                    <a  href="student_notes/{{subject.subject_name}}" class="subject">
                         <h2>{{subject.subject_name}}</h2>
                         <img src="{% static 'assets/SubjectsLable.svg' %}" alt="label">
                         <p>visit-></p>
                     </a>
                     {% endfor %}
-                    <a  href="/studentnotes.html" class="subject">
+                    <a  href="student_notes/dsa" class="subject">
                         <h2>Data Structures and Algorithems</h2>
                         <img src="{% static 'assets/SubjectsLable.svg' %}" alt="label">
                         <p>visit-></p>

@@ -34,6 +34,7 @@ def signup_view(request):
         confirm = request.POST['confirmPassword']
         user_type = request.POST['login_as']
 
+
         if password ==confirm:
             if CustomUser.objects.filter(email=e_mail).exists():
                 messages.success(request,'User already exists with this email ')
@@ -52,13 +53,14 @@ def signup_view(request):
                     return redirect('student_details')
                 else:
                     key=request.POST['idKey']
-                    print("Hello I am Here")
+                    hod=request.POST['hod']
                     user = CustomUser.objects.create_user   (username=e_mail, email=e_mail,  password=password, user_type = 2)
                     user.save()
                     teacher_user = user.teacher
                     teacher_user.fname = fName
                     teacher_user.lname = lName
                     teacher_user.id_key = key
+                    teacher_user.hod = hod
                     teacher_user.save()
                     messages.success(request, "You have Registered Successfully!")
                     # login(request, user, backend='django.contrib.auth.backends.ModelBackend')
@@ -67,7 +69,8 @@ def signup_view(request):
             messages.info('Enter correct password')
             return redirect('signup_view')
     else:
-        return render(request, 'signup.html')
+        hod_obj = HOD.objects.all()
+        return render(request, 'signup.html',{'hods': hod_obj})
     
 csrf_protect
 def login_view(request):
@@ -293,10 +296,19 @@ def student_dashboard(request):
     # context = {'name':My_user.student_set.get(id = request.user.id).username}
     use = CustomUser.objects.get(email = request.user.email)
     student = Student.objects.get(admin = use)
-    subject = Subject.objects.filter(course=student.course, branch=student.branch, sem = student.sem)
+    subject = Subject.objects.filter(course=student.course, sem = student.sem)
     nm = request.user.first_name
     context = {'subjects':subject}
     return render(request,'student_dashboard.html',context)
+
+def student_notes(request, subject):
+    if Subject.objects.filter(subject_name=subject).exists():
+        subject_obj = Subject.objects.get(subject_name = subject);
+        notes_obj = Notes.objects.filter(subject = subject_obj)
+        return render(request, 'studentsnotes.html', {'subject':subject_obj, 'notes':notes_obj})
+    else:
+        subject_obj = Subject.objects.get(subject_name = subject);
+        return render(request,'studentsnotes.html', {'subject':subject_obj, 'notes':None})
 
     
 

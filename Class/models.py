@@ -38,6 +38,13 @@ class HOD(models.Model):
         return self.admin.email
 
 
+# Teacher idKey
+class TeacherId(models.Model):
+    id = models.AutoField(primary_key=True)
+    value = models.CharField(default=0, max_length=30)
+    hod = models.ForeignKey(HOD, null=True, on_delete=models.CASCADE)
+
+
 #Teacher
 class Teacher(models.Model):
     id = models.AutoField(primary_key=True)
@@ -51,7 +58,7 @@ class Teacher(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
     def __str__(self):
-        return self.admin.first_name
+        return self.fname+" "+self.lname
 
 
 #Courses
@@ -70,7 +77,7 @@ class Branch(models.Model):
     id = models.AutoField(primary_key=True)
     branch_name = models.CharField(max_length=100, null=True)
     course = models.ForeignKey(Courses, on_delete=models.CASCADE,null = True)
-    hod=models.OneToOneField(HOD, on_delete=models.DO_NOTHING, null=True)
+    hod=models.OneToOneField(HOD, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.branch_name
 
@@ -117,6 +124,7 @@ class Subject(models.Model):
 class Notes(models.Model):
     id=models.AutoField(primary_key=True)
     subject=models.ForeignKey(Subject,on_delete=models.CASCADE,null = True)
+    title = models.CharField(max_length=50, default="Note Title")
     notes = models.FileField(upload_to='Notes')
     created_at=models.DateTimeField(auto_now_add=True)
 
@@ -133,6 +141,9 @@ class Assignment(models.Model):
 class Quiz(models.Model):
     id = models.AutoField(primary_key=True)
     Quiz_name = models.CharField(max_length=50, default="Quiz")
+    quiz = models.CharField(max_length=5000)
+    time_limit = models.IntegerField(default=20)
+    assign_date=models.DateField(default = datetime.now() )
     subject = models.ForeignKey(Subject,on_delete=models.CASCADE,null = True)
 
 
